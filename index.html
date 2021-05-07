@@ -6,12 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Socket.IO chat</title>
+  <title>Chat with Programmer Imran</title>
   <style>
-    /* body {
-      margin: 0;
-      padding-bottom: 3rem;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    body {
+      margin: 0 auto;
+      max-width: 800px;
+      padding: 0 20px;
     }
 
     #form {
@@ -53,19 +53,6 @@
       list-style-type: none;
       margin: 0;
       padding: 0;
-    }
-
-    #messages>li {
-      padding: 0.5rem 1rem;
-    }
-
-    #messages>li:nth-child(odd) {
-      background: #efefef;
-    } */
-    body {
-      margin: 0 auto;
-      max-width: 800px;
-      padding: 0 20px;
     }
 
     .container {
@@ -110,26 +97,21 @@
       float: left;
       color: #999;
     }
+
+    .name-right {
+      float: right;
+      color: #999;
+    }
+
+    .container:nth-child(odd) {
+      background: #c2c1c1;
+    }
   </style>
 </head>
 
 <body>
-  <!-- <ul id="messages"></ul> -->
 
-  <div id="messages">
-    <div class="container">
-      <img style="height: 100px;" src="https://www.unlocklive.com/wp-content/uploads/2016/07/765-default-avatar.png"
-        alt="Avatar" style="width:100%;">
-      <p>Hello. How are you today?</p>
-      <span class="time-right">11:00</span>
-    </div>
-
-    <div class="container darker">
-      <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right" style="width:100%;">
-      <p>Hey! I'm fine. Thanks for asking!</p>
-      <span class="time-left">11:01</span>
-    </div>
-  </div>
+  <div id="messages"></div>
 
   <form id="form" action="">
     <input id="input" autocomplete="off" /><button>Send</button>
@@ -150,13 +132,34 @@
         input.value = '';
       }
     });
-
+    var amarnam = '_'
     socket.on('chat message', function (msg) {
-      var item = document.createElement('li');
-      item.textContent = msg;
+      const date = new Date();
+
+      var item = document.createElement('div');
+      item.className = "container";
+
+      const img = document.createElement('img');
+      img.src = "https://www.unlocklive.com/wp-content/uploads/2016/07/765-default-avatar.png"
+      img.style = "height: 60px;";
+      item.appendChild(img)
+      const p = document.createElement('p');
+      p.innerHTML = msg;
+      item.appendChild(p)
+
+      const span = document.createElement('span');
+      span.innerHTML = date.toLocaleTimeString();
+      span.className = 'name-right';
+      item.appendChild(span)
+
+
       messages.appendChild(item);
       window.scrollTo(0, document.body.scrollHeight);
     });
+
+
+
+
   </script>
 </body>
 
